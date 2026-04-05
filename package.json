@@ -1,0 +1,12 @@
+{
+  "name": "squ-digital-assistant",
+  "version": "1.0.0",
+  "description": "المساعد الذكي لجامعة السلطان قابوس",
+  "scripts": {
+    "build": "echo 'Static site - no build needed'",
+    "deploy": "netlify deploy --prod"
+  },
+  "dependencies": {
+    "@netlify/functions": "^2.0.0"
+  }
+}
