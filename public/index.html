@@ -498,6 +498,17 @@
       font-size: 10px; color: rgba(255,255,255,0.38);
       text-align: center; letter-spacing: 0.07em;
     }
+    .sidebar-assistant-label {
+      font-family: var(--font);
+      font-size: 10px; font-weight: 600;
+      color: rgba(233,164,85,0.70);
+      text-align: center; letter-spacing: 0.06em;
+      padding: 3px 12px;
+      border: 1px solid rgba(233,164,85,0.20);
+      border-radius: 20px;
+      background: rgba(233,164,85,0.07);
+      margin-top: 2px;
+    }
     /* Decorative diamond pattern behind sidebar header emblem */
     .sidebar-geo-diamond {
       position: absolute;
@@ -650,6 +661,34 @@
       font-family: var(--font-body);
       font-size: 11px; color: var(--g400); margin-top: 1px;
     }
+    /* Chat header right side */
+    .chat-header-right {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .header-squ-identity {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .header-squ-emblem {
+      width: 36px; height: 36px; object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+    .header-squ-text {
+      display: flex; flex-direction: column; gap: 1px;
+    }
+    .header-squ-name-ar {
+      font-family: var(--font);
+      font-size: 13px; font-weight: 800; color: var(--blue-ink);
+      line-height: 1.2;
+    }
+    .header-squ-name-en {
+      font-family: var(--font-body);
+      font-size: 10px; color: var(--g400); letter-spacing: 0.04em;
+    }
+    .header-divider-v {
+      width: 1px; height: 32px;
+      background: var(--g100);
+    }
+
     .doc-pill {
       padding: 6px 14px; border-radius: 22px;
       background: rgba(31,74,194,0.08);
@@ -988,14 +1027,6 @@
         <rect width="260" height="36" fill="url(#bp-border)"/>
       </svg>
 
-      <!-- Emblem with pulse rings -->
-      <div class="emblem-wrapper">
-        <div class="pulse-ring"></div>
-        <div class="pulse-ring"></div>
-        <div class="pulse-ring"></div>
-        <img class="emblem-img" src="emblem.png" alt="شعار جامعة السلطان قابوس"/>
-      </div>
-
       <div class="brand-name-ar">جامعة السلطان قابوس</div>
       <div class="brand-name-en">Sultan Qaboos University</div>
       <div class="brand-divider"></div>
@@ -1005,14 +1036,6 @@
 
     <!-- RIGHT: Form panel — dark glass -->
     <div class="form-panel">
-
-      <div class="form-logo-row">
-        <img class="form-logo-emblem" src="emblem.png" alt=""/>
-        <div class="form-logo-text">
-          المساعد الذكي
-          <span>SQU Digital Assistant</span>
-        </div>
-      </div>
 
       <div class="form-heading">مرحباً بك</div>
       <div class="form-sub">الرجاء تسجيل الدخول للمتابعة</div>
@@ -1086,8 +1109,9 @@
 
       <div class="sidebar-header">
         <img class="sidebar-emblem" src="emblem.png" alt="شعار الجامعة"/>
-        <div class="sidebar-title-ar">المساعد الذكي</div>
-        <div class="sidebar-title-en">SQU Digital Assistant</div>
+        <div class="sidebar-title-ar">جامعة السلطان قابوس</div>
+        <div class="sidebar-title-en">Sultan Qaboos University</div>
+        <div class="sidebar-assistant-label">المساعد الذكي للوائح</div>
       </div>
 
       <div class="doc-section">
@@ -1159,9 +1183,19 @@
             <p>يجيب بدقة من لوائح جامعة السلطان قابوس</p>
           </div>
         </div>
-        <div class="doc-pill" id="active-doc-pill">
-          <span class="doc-pill-dot"></span>
-          <span id="active-doc-pill-text">اللائحة التنفيذية</span>
+        <div class="chat-header-right">
+          <div class="header-squ-identity">
+            <img class="header-squ-emblem" src="emblem.png" alt="شعار الجامعة"/>
+            <div class="header-squ-text">
+              <span class="header-squ-name-ar">جامعة السلطان قابوس</span>
+              <span class="header-squ-name-en">Sultan Qaboos University</span>
+            </div>
+          </div>
+          <div class="header-divider-v"></div>
+          <div class="doc-pill" id="active-doc-pill">
+            <span class="doc-pill-dot"></span>
+            <span id="active-doc-pill-text">اللائحة التنفيذية</span>
+          </div>
         </div>
       </div>
 
