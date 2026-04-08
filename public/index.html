@@ -731,26 +731,26 @@
       font-family: var(--font-body);
       font-size: 11px; color: var(--g400); margin-top: 1px;
     }
-    /* SQU Official Horizontal Logo in chat header */
+    /* SQU Official Horizontal Logo in chat header — النسخة الأفقية */
     .header-squ-logo {
-      display: flex; align-items: center; gap: 12px;
+      display: flex; align-items: center; gap: 14px;
     }
     .header-squ-emblem {
-      width: 44px; height: 44px; object-fit: contain;
-      mix-blend-mode: multiply;
+      width: 48px; height: 48px; object-fit: contain;
+      /* No blend mode — header is white, white bg is invisible */
     }
     .header-squ-names {
-      display: flex; flex-direction: column; gap: 2px;
+      display: flex; flex-direction: column; gap: 1px;
     }
     .header-squ-ar {
       font-family: var(--font);
-      font-size: 17px; font-weight: 900; color: var(--blue-ink);
-      line-height: 1.1; letter-spacing: 0.01em;
+      font-size: 18px; font-weight: 800; color: var(--blue);
+      line-height: 1.15; letter-spacing: 0.01em;
     }
     .header-squ-en {
-      font-family: var(--font-body);
-      font-size: 11px; font-weight: 400; color: var(--blue);
-      letter-spacing: 0.06em;
+      font-family: var(--font);
+      font-size: 11px; font-weight: 700; color: var(--blue);
+      letter-spacing: 0.04em;
     }
 
     .doc-pill {
@@ -1214,7 +1214,6 @@
       </svg>
 
       <div class="sidebar-header">
-        <img class="sidebar-emblem" src="emblem.png" alt="شعار الجامعة"/>
         <div class="sidebar-title-ar">جامعة السلطان قابوس</div>
         <div class="sidebar-title-en">Sultan Qaboos University</div>
       </div>
