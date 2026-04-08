@@ -1415,6 +1415,10 @@ function sendChip(el) {
   sendMessage();
 }
 
+// Track conversation history for context-aware responses
+let conversationHistory = [];
+const MAX_HISTORY = 16; // Keep last 8 message pairs
+
 async function sendMessage() {
   const text = textarea.value.trim();
   if (!text || isStreaming) return;
@@ -1431,14 +1435,28 @@ async function sendMessage() {
     const res = await fetch('/.netlify/functions/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: text, docType: currentDoc }),
+      body: JSON.stringify({
+        question: text,
+        docType: currentDoc,
+        history: conversationHistory,
+      }),
     });
 
     if (!res.ok) throw new Error('HTTP ' + res.status);
     hideTyping();
 
     const data = await res.json();
-    appendMsg('ai', formatText(data.answer || 'لم أتمكن من الإجابة.'));
+    const answer = data.answer || 'لم أتمكن من الإجابة.';
+    appendMsg('ai', formatText(answer));
+
+    // Add to conversation history for next query
+    conversationHistory.push({ role: 'user', content: text });
+    conversationHistory.push({ role: 'assistant', content: answer });
+
+    // Keep history manageable (max 16 items = 8 pairs)
+    if (conversationHistory.length > MAX_HISTORY) {
+      conversationHistory = conversationHistory.slice(-MAX_HISTORY);
+    }
   } catch(err) {
     hideTyping();
     appendMsg('ai', 'عذراً، حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.');

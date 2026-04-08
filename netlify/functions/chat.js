@@ -52,22 +52,27 @@ exports.handler = async (event) => {
     ? 'اللائحة التنفيذية لقانون جامعة السلطان قابوس'
     : 'اللائحة المالية لجامعة السلطان قابوس';
 
-  // Send up to 80k chars of the document to stay within token limits
-  const docChunk = docText.length > 80000 ? docText.substring(0, 80000) : docText;
+  // Send up to 250k chars of the document (GPT-4o-mini handles this well)
+  // This ensures we include vastly more of the regulations than before
+  const docChunk = docText.length > 250000 ? docText.substring(0, 250000) : docText;
 
   const messages = [
     { role: 'system', content: SYSTEM_PROMPT },
-    {
-      role: 'user',
-      content: `فيما يلي نص ${docName}:\n\n---\n${docChunk}\n---\n\nالسؤال: ${question}`,
-    },
   ];
 
-  // Inject recent conversation history before the document message
+  // Inject recent conversation history FIRST (after system prompt)
+  // This gives the model context of the conversation
   const recentHistory = history.slice(-8);
   if (recentHistory.length > 0) {
-    messages.splice(1, 0, ...recentHistory);
+    messages.push(...recentHistory);
   }
+
+  // Add the current question with document context LAST
+  // This ensures the model focuses on the latest query with full document access
+  messages.push({
+    role: 'user',
+    content: `فيما يلي نص ${docName}:\n\n---\n${docChunk}\n---\n\nالسؤال: ${question}`,
+  });
 
   try {
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
