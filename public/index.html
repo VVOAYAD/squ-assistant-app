@@ -435,6 +435,76 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ======================================================
+       LOGIN PAGE ANIMATIONS
+    ====================================================== */
+
+    /* Large star watermark — slow rotation */
+    .brand-geo-star-bg { animation: starRotate 90s linear infinite !important; }
+    @keyframes starRotate {
+      0%   { transform: translate(-50%, -54%) rotate(0deg); }
+      100% { transform: translate(-50%, -54%) rotate(360deg); }
+    }
+    /* Islamic snowflake — gentle pulse */
+    .brand-geo-snowflake { animation: snowflakePulse 7s ease-in-out infinite !important; }
+    @keyframes snowflakePulse {
+      0%, 100% { opacity: 0.42; transform: scale(1); }
+      50%       { opacity: 0.65; transform: scale(1.18); }
+    }
+    /* Diamond corner grid — breathing */
+    .brand-geo-diamond { animation: diamondBreathe 10s ease-in-out infinite !important; }
+    @keyframes diamondBreathe {
+      0%, 100% { opacity: 0.38; }
+      50%       { opacity: 0.58; }
+    }
+    /* Diagonal light sweep across brand panel */
+    .brand-shimmer {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(
+        125deg,
+        transparent 0%, transparent 38%,
+        rgba(255,255,255,0.06) 50%,
+        transparent 62%, transparent 100%
+      );
+      background-size: 300% 300%;
+      animation: diagonalSweep 8s ease-in-out infinite;
+    }
+    @keyframes diagonalSweep {
+      0%   { background-position: 200% 200%; opacity: 0; }
+      20%  { opacity: 1; }
+      80%  { opacity: 1; }
+      100% { background-position: -100% -100%; opacity: 0; }
+    }
+    /* Floating gold sparkle particles */
+    .sparkle {
+      position: absolute; border-radius: 50%;
+      background: rgba(233,164,85,0.8);
+      pointer-events: none; z-index: 2;
+      animation: sparkleFloat var(--dur,9s) ease-in-out infinite var(--delay,0s);
+    }
+    @keyframes sparkleFloat {
+      0%   { transform: translateY(0) scale(1); opacity: 0.7; }
+      50%  { transform: translateY(-32px) scale(0.6); opacity: 0.35; }
+      100% { transform: translateY(-60px) scale(0.2); opacity: 0; }
+    }
+    /* Gold shimmer sweep on form panel */
+    .form-shimmer {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: linear-gradient(
+        160deg,
+        transparent 0%, rgba(233,164,85,0.04) 40%,
+        rgba(233,164,85,0.08) 50%, rgba(233,164,85,0.04) 60%, transparent 100%
+      );
+      background-size: 200% 200%;
+      animation: formShimmer 10s ease-in-out infinite 2s;
+    }
+    @keyframes formShimmer {
+      0%, 100% { background-position: 0% 0%; opacity: 0; }
+      30%       { opacity: 1; }
+      50%       { background-position: 100% 100%; opacity: 1; }
+      70%       { opacity: 0; }
+    }
+
+    /* ======================================================
        ██████████ APP SCREEN ██████████
     ====================================================== */
     #app-screen { align-items: stretch; padding: 0; }
@@ -661,32 +731,26 @@
       font-family: var(--font-body);
       font-size: 11px; color: var(--g400); margin-top: 1px;
     }
-    /* Chat header right side */
-    .chat-header-right {
-      display: flex; align-items: center; gap: 14px;
-    }
-    .header-squ-identity {
-      display: flex; align-items: center; gap: 10px;
+    /* SQU Official Horizontal Logo in chat header */
+    .header-squ-logo {
+      display: flex; align-items: center; gap: 12px;
     }
     .header-squ-emblem {
-      width: 36px; height: 36px; object-fit: contain;
+      width: 44px; height: 44px; object-fit: contain;
       mix-blend-mode: multiply;
     }
-    .header-squ-text {
-      display: flex; flex-direction: column; gap: 1px;
+    .header-squ-names {
+      display: flex; flex-direction: column; gap: 2px;
     }
-    .header-squ-name-ar {
+    .header-squ-ar {
       font-family: var(--font);
-      font-size: 13px; font-weight: 800; color: var(--blue-ink);
-      line-height: 1.2;
+      font-size: 17px; font-weight: 900; color: var(--blue-ink);
+      line-height: 1.1; letter-spacing: 0.01em;
     }
-    .header-squ-name-en {
+    .header-squ-en {
       font-family: var(--font-body);
-      font-size: 10px; color: var(--g400); letter-spacing: 0.04em;
-    }
-    .header-divider-v {
-      width: 1px; height: 32px;
-      background: var(--g100);
+      font-size: 11px; font-weight: 400; color: var(--blue);
+      letter-spacing: 0.06em;
     }
 
     .doc-pill {
@@ -956,6 +1020,14 @@
 
     <!-- LEFT: Brand panel — clock tower background -->
     <div class="brand-panel">
+      <!-- Diagonal light sweep -->
+      <div class="brand-shimmer"></div>
+      <!-- Floating gold sparkle particles -->
+      <div class="sparkle" style="width:4px;height:4px;bottom:18%;left:22%;--dur:8s;--delay:0s"></div>
+      <div class="sparkle" style="width:3px;height:3px;bottom:30%;left:68%;--dur:11s;--delay:1.5s"></div>
+      <div class="sparkle" style="width:5px;height:5px;bottom:25%;left:40%;--dur:9s;--delay:3s"></div>
+      <div class="sparkle" style="width:3px;height:3px;bottom:15%;left:55%;--dur:12s;--delay:0.8s"></div>
+      <div class="sparkle" style="width:4px;height:4px;bottom:40%;left:80%;--dur:10s;--delay:2.2s"></div>
 
       <!-- Large 8-pointed star watermark behind emblem -->
       <svg class="brand-geo brand-geo-star-bg" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
@@ -1036,6 +1108,7 @@
 
     <!-- RIGHT: Form panel — dark glass -->
     <div class="form-panel">
+      <div class="form-shimmer"></div>
 
       <div class="form-heading">مرحباً بك</div>
       <div class="form-sub">الرجاء تسجيل الدخول للمتابعة</div>
@@ -1111,7 +1184,6 @@
         <img class="sidebar-emblem" src="emblem.png" alt="شعار الجامعة"/>
         <div class="sidebar-title-ar">جامعة السلطان قابوس</div>
         <div class="sidebar-title-en">Sultan Qaboos University</div>
-        <div class="sidebar-assistant-label">المساعد الذكي للوائح</div>
       </div>
 
       <div class="doc-section">
@@ -1172,30 +1244,18 @@
     <!-- CHAT AREA -->
     <main class="chat-area">
       <div class="chat-header">
-        <div class="chat-header-title">
-          <div class="chat-header-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-            </svg>
-          </div>
-          <div class="chat-header-text">
-            <h2>المساعد الذكي</h2>
-            <p>يجيب بدقة من لوائح جامعة السلطان قابوس</p>
+        <!-- SQU Official Horizontal Logo — right side (first in RTL) -->
+        <div class="header-squ-logo">
+          <img class="header-squ-emblem" src="emblem.png" alt="شعار الجامعة"/>
+          <div class="header-squ-names">
+            <span class="header-squ-ar">جامعـة السلطـان قابـوس</span>
+            <span class="header-squ-en">Sultan Qaboos University</span>
           </div>
         </div>
-        <div class="chat-header-right">
-          <div class="header-squ-identity">
-            <img class="header-squ-emblem" src="emblem.png" alt="شعار الجامعة"/>
-            <div class="header-squ-text">
-              <span class="header-squ-name-ar">جامعة السلطان قابوس</span>
-              <span class="header-squ-name-en">Sultan Qaboos University</span>
-            </div>
-          </div>
-          <div class="header-divider-v"></div>
-          <div class="doc-pill" id="active-doc-pill">
-            <span class="doc-pill-dot"></span>
-            <span id="active-doc-pill-text">اللائحة التنفيذية</span>
-          </div>
+        <!-- Doc pill — left side -->
+        <div class="doc-pill" id="active-doc-pill">
+          <span class="doc-pill-dot"></span>
+          <span id="active-doc-pill-text">اللائحة التنفيذية</span>
         </div>
       </div>
 
