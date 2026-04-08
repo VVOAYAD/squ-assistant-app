@@ -953,6 +953,30 @@
     #send-btn:active  { transform: scale(0.97); }
     #send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
     #send-btn svg { width: 17px; height: 17px; }
+    /* AI suggested follow-up chips */
+    .ai-suggestions {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 12px; padding-top: 10px;
+      border-top: 1px solid var(--g100);
+    }
+    .ai-chip {
+      padding: 5px 13px; border-radius: 18px;
+      background: rgba(31,74,194,0.06);
+      border: 1.5px solid rgba(31,74,194,0.15);
+      font-family: var(--font);
+      font-size: 11px; font-weight: 600; color: var(--blue);
+      cursor: pointer;
+      transition: all 180ms var(--ease-out);
+      text-align: right;
+    }
+    .ai-chip:hover {
+      background: rgba(31,74,194,0.12);
+      border-color: var(--blue);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 10px rgba(31,74,194,0.15);
+    }
+    .ai-chip:active { transform: translateY(0); }
+
     .input-footer {
       font-family: var(--font-body);
       text-align: center; font-size: 10px; color: var(--g200); margin-top: 8px;
@@ -1579,7 +1603,7 @@ async function sendMessage() {
     }
   } catch(err) {
     hideTyping();
-    appendMsg('ai', 'عذراً، حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.');
+    appendMsg('ai', 'تعذّر الاتصال بالنظام. تحقق من اتصالك بالإنترنت وأعد المحاولة، أو تواصل مع المؤيد الريامي – داخلي 5102.');
     console.error(err);
   } finally {
     isStreaming = false;
@@ -1592,12 +1616,33 @@ function escapeHtml(s) {
 }
 
 function formatText(text) {
-  return text
+  // Extract suggestions line before any HTML escaping
+  const sugMatch = text.match(/\[اقتراحات\]:\s*(.+)$/m);
+  let suggestionsHtml = '';
+  if (sugMatch) {
+    const chips = sugMatch[1].split('|').map(s => s.trim()).filter(Boolean);
+    if (chips.length) {
+      suggestionsHtml = `<div class="ai-suggestions">${
+        chips.map(q => `<button class="ai-chip" onclick="sendChipText(this)">${escapeHtml(q)}</button>`).join('')
+      }</div>`;
+    }
+    text = text.replace(/\[اقتراحات\]:\s*.+$/m, '').trimEnd();
+  }
+
+  const body = text
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.*?)\*/g, '<em>$1</em>')
     .replace(/\n\n/g, '</p><p style="margin-top:10px">')
     .replace(/\n/g, '<br>');
+
+  return body + suggestionsHtml;
+}
+
+function sendChipText(el) {
+  textarea.value = el.textContent;
+  textarea.dispatchEvent(new Event('input'));
+  sendMessage();
 }
 </script>
 
