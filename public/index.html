@@ -116,16 +116,16 @@
     .squ-diamond-grid {
       position: absolute; top: 20px; left: 20px;
       width: 200px; height: 180px;
-      opacity: 0.10; pointer-events: none;
+      opacity: 0.28; pointer-events: none;
     }
     .squ-square-grid {
       position: absolute; bottom: 40px; right: 30px;
       width: 180px; height: 160px;
-      opacity: 0.08; pointer-events: none;
+      opacity: 0.24; pointer-events: none;
     }
     .squ-border-strip {
       position: absolute; bottom: 0; left: 0; right: 0;
-      height: 28px; opacity: 0.13; pointer-events: none; overflow: hidden;
+      height: 28px; opacity: 0.22; pointer-events: none; overflow: hidden;
     }
 
     /* ======================================================
@@ -151,7 +151,7 @@
       border-radius: 28px;
       overflow: hidden;
       box-shadow:
-        0 0 0 1px rgba(233,164,85,0.12),
+        0 0 0 1px rgba(233,164,85,0.28),
         0 60px 120px rgba(0,0,0,0.75),
         0 0 160px rgba(31,74,194,0.28);
       animation: cardRise 0.9s var(--ease-out) both;
@@ -174,7 +174,7 @@
       inset: 0 55% 0 0;
       background-image: url('clock-tower.jpg');
       background-size: cover;
-      background-position: center 10%;
+      background-position: center 20%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -189,12 +189,12 @@
       position: absolute; inset: 0; z-index: 0;
       background: linear-gradient(
         170deg,
-        rgba(19, 49, 140, 0.86) 0%,
-        rgba(13, 33, 112, 0.92) 45%,
-        rgba(7, 21, 80, 0.96) 100%
+        rgba(4, 14, 56, 0.45) 0%,
+        rgba(7, 21, 80, 0.60) 50%,
+        rgba(4, 14, 56, 0.82) 100%
       );
     }
-    /* Gold top accent bar */
+    /* Gold top accent bar + right separator */
     .brand-panel::after {
       content: '';
       position: absolute;
@@ -208,6 +208,18 @@
         var(--gold-dark) 85%,
         transparent 100%);
       z-index: 3;
+    }
+    /* Gold vertical separator between panels */
+    .brand-panel-separator {
+      position: absolute;
+      inset: 0 55% 0 auto;
+      width: 1px;
+      background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(233,164,85,0.35) 20%,
+        rgba(233,164,85,0.22) 80%,
+        transparent 100%);
+      z-index: 20;
     }
     /* All direct children above overlay */
     .brand-panel > * { position: relative; z-index: 2; }
@@ -234,10 +246,11 @@
       width: 98px; height: 98px;
       object-fit: cover; border-radius: 50%;
       position: relative; z-index: 2;
+      mix-blend-mode: screen;
+      filter: brightness(1.08) drop-shadow(0 0 22px rgba(233,164,85,0.55));
       box-shadow:
         0 0 0 2px rgba(233,164,85,0.65),
-        0 0 0 5px rgba(233,164,85,0.15),
-        0 0 36px rgba(233,164,85,0.45);
+        0 0 0 5px rgba(233,164,85,0.15);
       animation: emblemGlow 4s ease-in-out infinite alternate;
     }
     @keyframes emblemGlow {
@@ -268,10 +281,17 @@
     }
     /* SQU geometric decorations on brand panel */
     .brand-geo { position: absolute; pointer-events: none; z-index: 1; }
-    .brand-geo-diamond { top: 14px; left: 14px; opacity: 0.16; width: 90px; height: 80px; }
-    .brand-geo-snowflake { top: 18px; right: 14px; opacity: 0.16; width: 52px; height: 52px; }
-    .brand-geo-star { bottom: 30px; left: 50%; transform: translateX(-50%); opacity: 0.22; width: 64px; height: 64px; }
-    .brand-geo-border { bottom: 0; left: 0; right: 0; height: 22px; opacity: 0.28; overflow: hidden; }
+    .brand-geo-diamond { top: 14px; left: 14px; opacity: 0.38; width: 90px; height: 80px; }
+    .brand-geo-snowflake { top: 18px; right: 14px; opacity: 0.42; width: 52px; height: 52px; }
+    .brand-geo-star { bottom: 30px; left: 50%; transform: translateX(-50%); opacity: 0.55; width: 64px; height: 64px; }
+    .brand-geo-border { bottom: 0; left: 0; right: 0; height: 36px; opacity: 0.50; overflow: hidden; }
+    .brand-geo-border-top { top: 22px; left: 0; right: 0; height: 20px; opacity: 0.42; overflow: hidden; }
+    /* Large star watermark centred behind emblem */
+    .brand-geo-star-bg {
+      top: 50%; left: 50%;
+      transform: translate(-50%, -54%);
+      opacity: 0.14; width: 280px; height: 280px; z-index: 0;
+    }
 
     /* ── RIGHT FORM PANEL — Dark glass ── */
     .form-panel {
@@ -287,8 +307,8 @@
     .form-panel::before {
       content: '';
       position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px);
-      background-size: 18px 18px;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
       pointer-events: none;
     }
     /* Gold shimmer at very bottom of form panel */
@@ -462,6 +482,8 @@
     }
     .sidebar-emblem {
       width: 56px; height: 56px; object-fit: cover; border-radius: 50%;
+      mix-blend-mode: screen;
+      filter: brightness(1.05);
       box-shadow:
         0 0 0 2px rgba(233,164,85,0.45),
         0 0 18px rgba(233,164,85,0.22);
@@ -481,7 +503,7 @@
       position: absolute;
       top: 120px; left: 50%;
       transform: translateX(-50%);
-      opacity: 0.055;
+      opacity: 0.22;
       width: 160px; height: 140px;
       pointer-events: none;
     }
@@ -890,8 +912,37 @@
       <rect width="960" height="22" fill="url(#chain-strip)"/>
     </svg>
 
+    <!-- Gold vertical separator -->
+    <div class="brand-panel-separator"></div>
+
     <!-- LEFT: Brand panel — clock tower background -->
     <div class="brand-panel">
+
+      <!-- Large 8-pointed star watermark behind emblem -->
+      <svg class="brand-geo brand-geo-star-bg" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="60" width="160" height="160" fill="rgba(233,164,85,1)" rx="4"/>
+        <rect x="60" y="60" width="160" height="160" fill="rgba(233,164,85,1)" rx="4" transform="rotate(45 140 140)"/>
+        <circle cx="140" cy="140" r="36" fill="none" stroke="rgba(233,164,85,1)" stroke-width="6"/>
+        <circle cx="140" cy="140" r="18" fill="rgba(233,164,85,0.7)"/>
+        <!-- Spokes -->
+        <line x1="140" y1="60" x2="140" y2="220" stroke="rgba(233,164,85,0.4)" stroke-width="1.5"/>
+        <line x1="60" y1="140" x2="220" y2="140" stroke="rgba(233,164,85,0.4)" stroke-width="1.5"/>
+        <line x1="87" y1="87" x2="193" y2="193" stroke="rgba(233,164,85,0.4)" stroke-width="1.5"/>
+        <line x1="193" y1="87" x2="87" y2="193" stroke="rgba(233,164,85,0.4)" stroke-width="1.5"/>
+      </svg>
+
+      <!-- Connector chain border — top of panel (below gold bar) -->
+      <svg class="brand-geo brand-geo-border-top" viewBox="0 0 260 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="bp-border-top" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <rect x="6" y="6" width="8" height="8" fill="none" stroke="#e9a455" stroke-width="1" transform="rotate(45 10 10)"/>
+            <rect x="8" y="8" width="4" height="4" fill="rgba(233,164,85,0.6)" transform="rotate(45 10 10)"/>
+            <rect x="0" y="8" width="3" height="3" fill="rgba(233,164,85,0.5)" transform="rotate(45 1.5 10)"/>
+            <rect x="17" y="8" width="3" height="3" fill="rgba(233,164,85,0.5)" transform="rotate(45 18.5 10)"/>
+          </pattern>
+        </defs>
+        <rect width="260" height="20" fill="url(#bp-border-top)"/>
+      </svg>
 
       <!-- Diamond dot grid top-left corner -->
       <svg class="brand-geo brand-geo-diamond" viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg">
@@ -927,14 +978,14 @@
       </svg>
 
       <!-- Decorative border strip at bottom of brand panel -->
-      <svg class="brand-geo brand-geo-border" viewBox="0 0 260 22" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <svg class="brand-geo brand-geo-border" viewBox="0 0 260 36" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="bp-border" x="0" y="0" width="20" height="22" patternUnits="userSpaceOnUse">
             <rect x="7" y="7" width="6" height="6" fill="none" stroke="#e9a455" stroke-width="0.9" transform="rotate(45 10 11)"/>
             <rect x="9" y="9" width="2" height="2" fill="#e9a455" transform="rotate(45 10 11)"/>
           </pattern>
         </defs>
-        <rect width="260" height="22" fill="url(#bp-border)"/>
+        <rect width="260" height="36" fill="url(#bp-border)"/>
       </svg>
 
       <!-- Emblem with pulse rings -->
@@ -1116,14 +1167,6 @@
 
       <div class="messages" id="messages">
         <div class="welcome-state" id="welcome-state">
-          <!-- Personalized greeting card — populated after login -->
-          <div class="welcome-user-card" id="welcome-user-card" style="display:none">
-            <img class="welcome-user-emblem" src="emblem.png" alt=""/>
-            <div class="welcome-user-greeting">أهلاً وسهلاً،</div>
-            <div class="welcome-user-name" id="welcome-user-name"></div>
-            <div class="welcome-user-role" id="welcome-user-role"></div>
-          </div>
-
           <div class="welcome-divider"></div>
           <div class="welcome-title">كيف يمكنني مساعدتك؟</div>
           <div class="welcome-sub">اطرح سؤالك حول اللوائح الجامعية وسأجيبك فوراً بناءً على المستند المحدد.</div>
@@ -1253,14 +1296,6 @@ function bootApp(user) {
   document.getElementById('user-role-display').textContent = user.role;
   document.getElementById('user-avatar-text').textContent  = user.initials;
 
-  /* Populate welcome state personalized greeting */
-  const nameEl = document.getElementById('welcome-user-name');
-  const roleEl = document.getElementById('welcome-user-role');
-  const cardEl = document.getElementById('welcome-user-card');
-  if (nameEl) nameEl.textContent = user.nameFull;
-  if (roleEl) roleEl.textContent = user.role;
-  if (cardEl) cardEl.style.display = 'flex';
-
   showScreen('app-screen');
 }
 
@@ -1300,12 +1335,6 @@ function clearMessages() {
   const msgs = document.getElementById('messages');
   msgs.innerHTML = `
     <div class="welcome-state" id="welcome-state">
-      <div class="welcome-user-card" id="welcome-user-card" style="display:none">
-        <img class="welcome-user-emblem" src="emblem.png" alt=""/>
-        <div class="welcome-user-greeting">أهلاً وسهلاً،</div>
-        <div class="welcome-user-name" id="welcome-user-name"></div>
-        <div class="welcome-user-role" id="welcome-user-role"></div>
-      </div>
       <div class="welcome-divider"></div>
       <div class="welcome-title">كيف يمكنني مساعدتك؟</div>
       <div class="welcome-sub">اطرح سؤالك حول اللوائح الجامعية وسأجيبك فوراً بناءً على المستند المحدد.</div>
